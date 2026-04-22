@@ -5,7 +5,7 @@ set timeout -1
 spawn proot-distro login "$env(SAGE_DISTR_NAME)"
 expect ":~#"
 
-# download miniforge3
+# download miniforge3 distribution
 send "curl -L -O https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh\r"
 expect ":~#"
 
@@ -21,6 +21,10 @@ expect ">>>"
 send "\r"
 expect ">>>"
 send "yes\r"
+expect ":~#"
+
+# delete miniforge3 distribution
+send "rm Miniforge3-Linux-aarch64.sh\r"
 expect ":~#"
 
 # relogin in proot
