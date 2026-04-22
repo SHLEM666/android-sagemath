@@ -1,0 +1,18 @@
+# wait enough (forever) until a long-time boot
+set timeout -1
+
+# login in proot debian
+spawn proot-distro login "$env(SAGE_DISTR_NAME)"
+expect ":~#"
+
+# activate conda sage enviroment
+send "conda activate sage\r"
+expect ":~#"
+
+# enter working directory
+send "cd '$env(SAGE_WORK_DIR)'\r"
+sleep 0.1
+
+# start jupyterlab
+send "jupyter lab --allow-root $env(SAGE_OPTIONS)\r"
+interact

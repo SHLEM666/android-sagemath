@@ -1,0 +1,8 @@
+# proot distribution name
+export SAGE_DISTR_NAME="debiansage"
+
+# sagemath work directory
+export SAGE_WORK_DIR=""
+
+# additional options for sagemath
+export SAGE_OPTIONS="--no-browser"

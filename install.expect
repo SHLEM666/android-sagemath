@@ -1,0 +1,61 @@
+# wait enough (forever) until a long-time boot
+set timeout -1
+
+# login in proot
+spawn proot-distro login "$env(SAGE_DISTR_NAME)"
+expect ":~#"
+
+# download miniforge3
+send "curl -L -O https://github.com/conda-forge/miniforge/releases/latest/download/Miniforge3-Linux-aarch64.sh\r"
+expect ":~#"
+
+# install miniforge3
+send "bash Miniforge3-Linux-aarch64.sh\r"
+expect ">>>"
+send "\r"
+sleep 0.1
+send "q"
+expect ">>>"
+send "yes\r"
+expect ">>>"
+send "\r"
+expect ">>>"
+send "yes\r"
+expect ":~#"
+
+# relogin in proot
+send "exit\r"
+expect "{$}"
+spawn proot-distro login "$env(SAGE_DISTR_NAME)"
+expect ":~#"
+
+# install sagemath
+send "yes | conda create -n sage --copy sage\r"
+expect ":~#"
+
+# remove the files cached during installation
+send "yes | conda clean -a\r"
+expect ":~#"
+
+# make getifaddrs() work again
+# see https://github.com/termux/proot/issues/248
+# and https://github.com/George-Seven/Termux-Proot-Utils
+send "apt update -y\r"
+expect ":~#"
+send "apt install -y --no-install-recommends gcc libc6-dev\r"
+expect ":~#"
+send "mkdir -p /.libnetstub\r"
+expect ":~#"
+send "curl -sL -o /.libnetstub/libnetstub.sh 'https://raw.githubusercontent.com/George-Seven/Termux-Proot-Utils/refs/heads/main/libnetstub.sh'\r"
+expect ":~#"
+send "echo '. /.libnetstub/libnetstub.sh' | tee -a ~/.bashrc ~/.zshrc >/dev/null\r"
+expect ":~#"
+
+# logout from proot
+send "exit\r"
+expect "{$}"
+
+puts "Installation complete!"
+puts "It seems."
+puts "To start SageMath:"
+puts "  cd android-sagemath && ./start.sh"
