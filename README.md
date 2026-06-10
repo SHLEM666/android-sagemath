@@ -53,12 +53,12 @@ termux-setup-storage
 
 ### Backup / Restore
 
-- [Backup](https://github.com/termux/proot-distro#backing-up-distribution) the PRoot distribution with alias `debiansage`:
+- [Backup](https://github.com/termux/proot-distro#backup--archive-a-container) a PRoot-Distro container with alias `debiansage`:
    ```bash
    proot-distro backup --output ~/storage/downloads/debiansage_backup.tar.gz debiansage
    ```
 
-- [Restore](https://github.com/termux/proot-distro#restore-from-backup) the PRoot distribution from `debiansage_backup.tar.gz` file:
+- [Restore](https://github.com/termux/proot-distro#restore--restore-a-container-from-a-backup) a PRoot-Distro container from `debiansage_backup.tar.gz` file:
    ```bash
    proot-distro restore ~/storage/downloads/debiansage_backup.tar.gz
    ```
@@ -89,6 +89,7 @@ conda install jupyterlab=4.2.7
 
 ## See also
 
+- [PRoot-Distro](https://github.com/termux/proot-distro)
 - [Miniforge](https://github.com/conda-forge/miniforge)
 
 ## Thanks to
