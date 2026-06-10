@@ -41,20 +41,6 @@ expect ":~#"
 send "yes | conda clean -a\r"
 expect ":~#"
 
-# make getifaddrs() work again
-# see https://github.com/termux/proot/issues/248
-# and https://github.com/George-Seven/Termux-Proot-Utils
-send "apt update -y\r"
-expect ":~#"
-send "apt install -y --no-install-recommends gcc libc6-dev\r"
-expect ":~#"
-send "mkdir -p /.libnetstub\r"
-expect ":~#"
-send "curl -sL -o /.libnetstub/libnetstub.sh 'https://raw.githubusercontent.com/George-Seven/Termux-Proot-Utils/refs/heads/main/libnetstub.sh'\r"
-expect ":~#"
-send "echo '. /.libnetstub/libnetstub.sh' | tee -a ~/.bashrc ~/.zshrc >/dev/null\r"
-expect ":~#"
-
 # logout from proot
 send "exit\r"
 expect "{$}"
