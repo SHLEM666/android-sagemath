@@ -19,7 +19,6 @@ if [ -z "${SAGE_DISTR_NAME}" ]; then
 fi
 
 # create a separate distribution for sagemath
-cp $PREFIX/etc/proot-distro/debian.sh $PREFIX/etc/proot-distro/$SAGE_DISTR_NAME.sh
-proot-distro install $SAGE_DISTR_NAME
+proot-distro install debian -n $SAGE_DISTR_NAME
 
 expect -f install.expect
